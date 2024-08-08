@@ -1,0 +1,1 @@
+import { nine_max_ranges, nine_max_positions } from "./info";
