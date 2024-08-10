@@ -90,7 +90,7 @@ function App() {
       sim_details.style.color = 'green';
     }
     else {
-      sim_details.innerText = `Incorrect. Correct answer was to ${answer}. Get fucked!`;
+      sim_details.innerText = `Incorrect. Correct answer was to ${answer}!`;
       sim_details.style.color = 'red';
     }
 
