@@ -13,7 +13,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max-http-header-size=16000 start",
     "start-api": "cd api && gtotrainer/bin/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -36,17 +36,64 @@ nav {
   border-radius: 50%; /* Keep seat shape circular */
 }
 
+.card-display {
+  display: flex;
+  line-height: 34px;
+  margin-top:10px;
+  width: calc(4.5vw + 8px);
+  height: 2.5vw;
+  gap: 4px;
+}
+
+.card {
+  position: unset;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #27ae60;
+  line-height: unset;
+  text-align: unset;
+  font-size: unset;
+  font-weight: 600;
+  width: calc(2.25vw - 4px);
+  padding:0px 10px 0px 10px;
+}
+
 .folded {
   opacity: 0.5;
 }
 
-.simulation {
+.simulation, .sim-details, .sim-buttons {
   position: absolute;
   color: white;
   text-align: center;
   line-height: 4vw;
+}
+
+.simulation {
   top:45%;
-  left:50%;
+  left:calc(50% - 2.25vw);
+  display:none;
+}
+
+.sim-details {
+  top:35%;
+  margin:auto;
+  font-size:x-large;
+  position: relative;
+}
+
+.sim-buttons {
+  top: 60%;
+  left:calc(50% - 7.5vw - .75rem);
+  display:none;
+}
+
+.sim-button {
+  padding: 10px;
+  width:5vw;
 }
 
 /* Adjust seat positions for 9 seats in an oval shape */
@@ -195,4 +242,5 @@ td {
 .slider {
   padding: 5px;
 }
+
 

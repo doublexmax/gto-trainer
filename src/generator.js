@@ -1,6 +1,6 @@
 import Cookies from 'react-cookies';
 
-import { cards, num_to_cards } from './info';
+import { cards, num_to_cards, all_cards } from './info';
 
 const values = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9};
 
@@ -21,10 +21,10 @@ async function get_chart(hero_position) {
 };
 
 export async function nineMaxGenerator() {
-    let running = false;
+    let gen_running = false;
 
     return async () => {
-        if (running) {
+        if (gen_running) {
             console.log('gen already running');
             return 
         }
@@ -38,7 +38,8 @@ export async function nineMaxGenerator() {
             /*
             TODO: special feature where we require there to be at least 1 action in this spot, run for loop and check
             */
-            return 'bb, RFI non-existent'
+            gen_running = false;
+            return ['bb, RFI non-existent']
         }
 
         let action = new Map();
@@ -70,7 +71,7 @@ export async function nineMaxGenerator() {
         }
 
         var hero_data;
-        console.log(data[hero_position], 'hero position data', hero_position);
+        //console.log(data[hero_position], 'hero position data', hero_position);
         if (data[hero_position] && typeof data[hero_position] === 'string') {
             hero_data = JSON.parse(data[hero_position]); 
         }
@@ -81,12 +82,12 @@ export async function nineMaxGenerator() {
         
 
         // generate hero's cards
-        console.log(hero_data);
+        //console.log(hero_data);
         if (hero_data) {
-            let hero_cards = Object.keys(hero_data)[Math.floor(Math.random() * Object.keys(hero_data).length)];
-            let hero_response = hero_data[hero_cards];
+            let hero_cards = Object.keys(all_cards)[Math.floor(Math.random() * Object.keys(all_cards).length)];
+            let hero_response = hero_data[hero_cards] || [0,0];
 
-            running = false;
+            gen_running = false;
 
             return [num_to_cards(hero_cards), hero_response, hero_position];
         }
