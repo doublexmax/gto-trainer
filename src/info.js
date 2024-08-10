@@ -1,4 +1,4 @@
-export const nine_max_positions = ['utg', 'utg1', 'utg2', 'lj', 'hj', 'co', 'btn', 'sb', 'bb'];
+export const nine_max_positions = ['utg', 'utg1', 'utg2', 'lj', 'hj', 'co', 'button', 'sb', 'bb'];
 
 export const nine_max_ranges = [
 'utg', 'utg1', 'utg2', 'lj', 'hj', 'co', 'btn', 'sb', 'bb',

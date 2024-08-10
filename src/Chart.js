@@ -12,11 +12,11 @@ export function Chart({position, visible, opener, three_better}) {
 
     const [gto, setGTO] = useState(null);
 
-    const getGradientStyle = (call, raise, fold) => `linear-gradient(to right, green ${call}%, red ${call}% ${raise}%, aqua ${call+raise}% ${fold}%)`
+    const getGradientStyle = (call, raise, fold) => `linear-gradient(90deg, #23a607 0% ${call}%, red ${call}% ${Number(call) + Number(raise)}%, aqua ${Number(call)+Number(raise)}% 100%)`
 
     useEffect(() => {
         if (gto) {
-            console.log(gto, 'gto val', position);
+            //console.log(gto, 'gto val', position);
             return
         }
 
@@ -31,12 +31,12 @@ export function Chart({position, visible, opener, three_better}) {
                 Cookies.save(
                     position,
                     JSON.stringify(data[position]),
-                    {path: '/'}
+                    {path: '/', domain: 'localhost'}
                 )
                 })
                 .catch((error) => console.log(error, 'error'));
         }
-        console.log(gto, 'set gto val', position);
+        //console.log(gto, 'set gto val', position);
     }, [gto]);
 
     useEffect(() => {
@@ -59,7 +59,7 @@ export function Chart({position, visible, opener, three_better}) {
                             call = 0;
                             fold_rate = 100;
                             raise_rate = 0;
-                            console.log('not found', cards_to_num(hand))
+                            //console.log('not found', cards_to_num(hand))
                         }
                         else if (response.length === 2) {
                             call = 0;
@@ -79,8 +79,20 @@ export function Chart({position, visible, opener, three_better}) {
                         
                         td.textContent = hand;
                         td.style.background = getGradientStyle(call, raise_rate, fold_rate);
-                        td.addEventListener("click", () => {
-                            alert(`You clicked on: ${hand} from ${position} ${getGradientStyle(call, raise_rate, fold_rate)}`);
+                        td.addEventListener("click", (event) => {
+                            const call_range = Number(document.getElementById('call-range').value);
+                            const raise_range = Number(document.getElementById('raise-range').value);
+                            
+                            const fold_range = 100 - call_range - raise_range;
+
+                            console.log([call_range,raise_range,fold_range]);
+                            event.target.style.background = getGradientStyle(call_range, raise_range, fold_range);
+                            gto[cards_to_num(event.target.textContent)] = [call_range,fold_range,raise_range];
+                            Cookies.save(
+                                position,
+                                JSON.stringify(gto),
+                                {path: '/'}
+                            )
                         });
                         tr.appendChild(td);
                     }

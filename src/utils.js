@@ -9,3 +9,7 @@ export function getPokerHand(row, col) {
         return `${cards[col]}${cards[row]}o`;
     }
 };
+
+export async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};

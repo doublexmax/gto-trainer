@@ -7,9 +7,8 @@ body {
 }
 
 nav {
-
+  position: unset !important;
 }
-
 
 .table-container {
   margin-top: 12.5%;
@@ -37,6 +36,19 @@ nav {
   border-radius: 50%; /* Keep seat shape circular */
 }
 
+.folded {
+  opacity: 0.5;
+}
+
+.simulation {
+  position: absolute;
+  color: white;
+  text-align: center;
+  line-height: 4vw;
+  top:45%;
+  left:50%;
+}
+
 /* Adjust seat positions for 9 seats in an oval shape */
 .seat:nth-child(1) {
   top: 10%;
@@ -45,8 +57,8 @@ nav {
 }
 
 .seat:nth-child(2) {
-  top: 23%;
-  left: 72.5%;
+  top: 20%;
+  left: 74%;
   transform: translateX(-50%);
 }
 
@@ -57,7 +69,7 @@ nav {
 }
 
 .seat:nth-child(4) {
-  top: 70%;
+  top: 75%;
   left: 70%;
   transform: translateX(-50%);
 }
@@ -69,7 +81,7 @@ nav {
 }
 
 .seat:nth-child(6) {
-  top: 70%;
+  top: 75%;
   left: 30%;
   transform: translateX(-50%);
 }
@@ -81,8 +93,8 @@ nav {
 }
 
 .seat:nth-child(8) {
-  top: 23%;
-  left: 27.5%;
+  top: 20%;
+  left: 26%;
   transform: translateX(-50%);
 }
 
@@ -90,6 +102,34 @@ nav {
   top: 10%;
   left: 42.5%;
   transform: translateX(-50%);
+}
+
+.chips.utg1 {
+  transform: translateX(-50%);
+}
+
+.chips.utg2 {
+  transform: translateX(-100%) translateY(-100%);
+}
+
+.chips.lj {
+  transform: translateX(-25%) translateY(-200%);
+}
+
+.chips.hj {
+  transform: translateY(-200%);
+}
+
+.chips.co {
+  transform: translateX(25%) translateY(-200%);
+}
+
+.chips.button {
+  transform: translateX(100%) translateY(-100%);
+}
+
+.chips.sb {
+  transform: translateX(50%);
 }
 
 .poker-table {
@@ -100,7 +140,7 @@ tr {
   border: 1px solid black;
 }
 td {
-  border: 1px solid black;
+  border: 1.5px solid black;
   padding: 10px;
   text-align: center;
   cursor: pointer;
@@ -131,3 +171,28 @@ td {
   padding: 5px 10px;
   cursor: pointer;
 }
+
+#raise-range {
+  accent-color: red;
+}
+
+#call-range {
+  accent-color: green;
+}
+
+#fold-range {
+  accent-color: aqua;
+}
+
+.slide-container, .slide-container-result {
+  display: inline-flex;
+}
+
+.slide-result {
+  padding: 6px;
+}
+
+.slider {
+  padding: 5px;
+}
+
