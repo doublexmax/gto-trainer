@@ -20,8 +20,8 @@ export function Navbar({pause, setPause, invertRNG, setInvertRNG}) {
 
     return (
         <div className="Navbar">
-            <nav className="navbar sticky-top bg-dark">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <nav className="navbar sticky-top ">
+            <a className="navbar-brand bg-warning home-btn" href="#">Home</a>
             <div className="form-check">
                 <input className="form-check-input" type="checkbox" value="" id="pause-check" pause onClick={() => setPause(pause ^ 1)} />
                 <label className="form-check-label pause-label" for="pause-check">

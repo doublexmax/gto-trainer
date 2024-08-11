@@ -34,8 +34,8 @@ export async function nineMaxGenerator() {
         let hero_position_idx = Math.floor(Math.random() * 9);
         let hero_position = nine_max_spots[hero_position_idx];
 
-        //TODO: CHANGE THIS
-        //hero_position = 'sb';
+        
+        //hero_position = 'sb'; hardcode set to look at multi-option spots
         
         if (hero_position === 'bb') {
             return runGenOnce()

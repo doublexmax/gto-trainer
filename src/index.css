@@ -10,6 +10,11 @@ nav {
   position: unset !important;
 }
 
+.home-btn {
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .pause-label p, .rng-label p {
   color: white;
   margin:auto;
@@ -253,4 +258,8 @@ td {
   padding: 5px;
 }
 
-
+.sim-results {
+  color:white;
+  font-size: large;
+  gap: 10px;
+}

@@ -15,17 +15,26 @@ function App() {
   const [selectedPosition, setSelectedPosition] = useState('utg');
   const [raiseValue, setRaiseValue] = useState(100);
   const [callValue, setCallValue] = useState(0);
+  
   const [pause, setPause] = useState(false);
   const [invertRNG, setInvertRNG] = useState(false);
+  
   const [simResponse, setSimResponse] = useState();
   const [simAnswer, setSimAnswer] = useState();
   const [simHand, setSimHand] = useState();
   const [simRNG, setSimRNG] = useState();
   const [isSimulating, setIsSimulating] = useState(false); // Track simulation status
 
+  const [numCorrect, setNumCorrect] = useState(0);
+  const [totalSims, setTotalSims] = useState(0);
+
   useEffect(() => {
+    if (totalSims == 0) {
+      return
+    }
+
     console.log(simRNG, 'rng set');
-  }, [simRNG]);
+  }, [totalSims]);
 
   useEffect(() => {
     nine_max_positions.forEach((position) => {
@@ -76,15 +85,16 @@ function App() {
     var answer;
     const sim_details = document.getElementsByClassName('sim-details')[0];
 
+
     if (invertRNG) {
-      if (simRNG <= simAnswer[0] + simAnswer[1]) {
-        answer = 'fold';
+      if (simRNG <= simAnswer[1]) {
+        answer = 'raise';
       }
-      else if (simRNG <= simAnswer[1]) {
+      else if (simRNG <= simAnswer[0] + simAnswer[1]) {
         answer = 'call';
       }
       else {
-        answer = 'raise';
+        answer = 'fold';
       }
     }
     else {
@@ -103,11 +113,15 @@ function App() {
     if (answer === simResponse) {
       sim_details.innerText = 'Correct!';
       sim_details.style.color = 'green';
+
+      setNumCorrect(numCorrect + 1);
     }
     else {
       sim_details.innerText = `Incorrect. Correct answer was to ${answer}! Call ${simAnswer[0]}%. Raise ${simAnswer[1]}% `;
       sim_details.style.color = 'red';
     }
+
+    setTotalSims(totalSims + 1);
 
     setSimResponse(null);    
 
@@ -261,6 +275,14 @@ function App() {
           ))}
           <button id="closeBtn" onClick={hidePopup}>Close</button>
         </div>
+      </div>
+      <div className="sim-results">
+        <span className="mr-4">
+          Num Correct: {numCorrect}
+        </span>
+        <span>
+          Total Sims: {totalSims}
+        </span>
       </div>
       <div className="table-container">
         <div className="table">
