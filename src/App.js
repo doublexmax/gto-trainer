@@ -296,8 +296,8 @@ function App() {
           <div className="sim-details">Set your ranges by using the cog wheel on the top right or run the sim with default ranges.</div>
           <div className="simulation">
             <div className="card-display">
-              <div className="card" id="card1">A</div>
-              <div className="card" id="card2">K</div>
+              <div className="card" id="card1"></div>
+              <div className="card" id="card2"></div>
             </div>
           </div>
           <div className="sim-buttons">
