@@ -1,6 +1,6 @@
 import Cookies from 'react-cookies';
 
-import { cards, num_to_cards, all_cards } from './info';
+import { num_to_cards, all_cards, cards_to_num } from './info';
 
 const values = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9};
 
@@ -23,7 +23,7 @@ async function get_chart(hero_position) {
 export async function nineMaxGenerator() {
     let gen_running = false;
 
-    return async () => {
+    return async function runGenOnce() {
         if (gen_running) {
             console.log('gen already running');
             return 
@@ -33,13 +33,12 @@ export async function nineMaxGenerator() {
 
         let hero_position_idx = Math.floor(Math.random() * 9);
         let hero_position = nine_max_spots[hero_position_idx];
+
+        //TODO: CHANGE THIS
+        //hero_position = 'sb';
         
         if (hero_position === 'bb') {
-            /*
-            TODO: special feature where we require there to be at least 1 action in this spot, run for loop and check
-            */
-            gen_running = false;
-            return ['bb, RFI non-existent']
+            return runGenOnce()
         }
 
         let action = new Map();
@@ -67,7 +66,7 @@ export async function nineMaxGenerator() {
         // now we are at hero
         if (action.get('4b')) {
             // once again we don't have charts facing 4b, so re-run spot
-            return nineMaxGenerator();
+            return runGenOnce();
         }
 
         var hero_data;
@@ -84,11 +83,11 @@ export async function nineMaxGenerator() {
         // generate hero's cards
         //console.log(hero_data);
         if (hero_data) {
-            let hero_cards = Object.keys(all_cards)[Math.floor(Math.random() * Object.keys(all_cards).length)];
+            let hero_cards = cards_to_num(all_cards[Math.floor(Math.random() * all_cards.length)]);
             let hero_response = hero_data[hero_cards] || [0,0];
 
             gen_running = false;
-
+            console.log(num_to_cards(hero_cards), 'generated cards');
             return [num_to_cards(hero_cards), hero_response, hero_position];
         }
     }

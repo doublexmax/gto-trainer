@@ -10,6 +10,16 @@ nav {
   position: unset !important;
 }
 
+.pause-label p, .rng-label p {
+  color: white;
+  margin:auto;
+  border-bottom: 1px dashed;
+}
+
+.charts-btn {
+  background-color: bisque;
+}
+
 .table-container {
   margin-top: 12.5%;
   position: relative;

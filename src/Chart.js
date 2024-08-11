@@ -16,7 +16,6 @@ export function Chart({position, visible, opener, three_better}) {
 
     useEffect(() => {
         if (gto) {
-            //console.log(gto, 'gto val', position);
             return
         }
 
@@ -28,15 +27,16 @@ export function Chart({position, visible, opener, three_better}) {
         else {
             fetch('/charts.json').then(response => response.json()).then(data => {
                 setGTO(data[position]);
+                const expires = new Date();
+                expires.setDate(Date.now() + 1000 * 60 * 60 * 24);
                 Cookies.save(
                     position,
                     JSON.stringify(data[position]),
-                    {path: '/', domain: 'localhost'}
+                    {path: '/', expires}
                 )
                 })
                 .catch((error) => console.log(error, 'error'));
         }
-        //console.log(gto, 'set gto val', position);
     }, [gto]);
 
     useEffect(() => {
@@ -87,10 +87,13 @@ export function Chart({position, visible, opener, three_better}) {
                             console.log([call_range,raise_range,fold_range]);
                             event.target.style.background = getGradientStyle(call_range, raise_range);
                             gto[cards_to_num(event.target.textContent)] = [call_range,raise_range];
+                            
+                            const expires = new Date();
+                            expires.setDate(Date.now() + 1000 * 60 * 60 * 24);
                             Cookies.save(
                                 position,
                                 JSON.stringify(gto),
-                                {path: '/'}
+                                {path: '/', expires}
                             )
                         });
                         tr.appendChild(td);

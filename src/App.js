@@ -15,7 +15,8 @@ function App() {
   const [selectedPosition, setSelectedPosition] = useState('utg');
   const [raiseValue, setRaiseValue] = useState(100);
   const [callValue, setCallValue] = useState(0);
-  const [pause, setPause] = useState(true);
+  const [pause, setPause] = useState(false);
+  const [invertRNG, setInvertRNG] = useState(false);
   const [simResponse, setSimResponse] = useState();
   const [simAnswer, setSimAnswer] = useState();
   const [simHand, setSimHand] = useState();
@@ -75,22 +76,36 @@ function App() {
     var answer;
     const sim_details = document.getElementsByClassName('sim-details')[0];
 
-    if (simRNG <= 100 - simAnswer[0] - simAnswer[1]) {
-      answer = 'fold';
-    }
-    else if (simRNG <= 100 - simAnswer[1]) {
-      answer = 'call';
+    if (invertRNG) {
+      if (simRNG <= simAnswer[0] + simAnswer[1]) {
+        answer = 'fold';
+      }
+      else if (simRNG <= simAnswer[1]) {
+        answer = 'call';
+      }
+      else {
+        answer = 'raise';
+      }
     }
     else {
-      answer = 'raise';
+      if (simRNG <= 100 - simAnswer[0] - simAnswer[1]) {
+        answer = 'fold';
+      }
+      else if (simRNG <= 100 - simAnswer[1]) {
+        answer = 'call';
+      }
+      else {
+        answer = 'raise';
+      }
     }
+
 
     if (answer === simResponse) {
       sim_details.innerText = 'Correct!';
       sim_details.style.color = 'green';
     }
     else {
-      sim_details.innerText = `Incorrect. Correct answer was to ${answer}!`;
+      sim_details.innerText = `Incorrect. Correct answer was to ${answer}! Call ${simAnswer[0]}%. Raise ${simAnswer[1]}% `;
       sim_details.style.color = 'red';
     }
 
@@ -208,7 +223,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar pause={pause} setPause={setPause} invertRNG={invertRNG} setInvertRNG={setInvertRNG} />
       <div id="popupBackground">
         <div id="popup">
           <h2>Chart - {selectedPosition.toUpperCase()}</h2>
