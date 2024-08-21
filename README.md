@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# NOTE: ARCHIVED AS THE CODE UPDATES ARE IN doublexmax/personal-website
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
